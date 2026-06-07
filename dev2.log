@@ -1,0 +1,28 @@
+
+> spotify-clone@0.1.0 dev
+> next dev
+
+- warn Port 3000 is in use, trying 3001 instead.
+- ready started server on 0.0.0.0:3001, url: http://localhost:3001
+- [36minfo[39m Loaded env from /home/akash/Downloads/MyProjects/Spotify-Clone/.env.local
+- [35mevent[39m compiled client and server successfully in 1579 ms (20 modules)
+- [36mwait[39m compiling...
+- [35mevent[39m compiled client and server successfully in 798 ms (20 modules)
+(node:16898) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+- [36mwait[39m compiling /(site)/page (client and server)...
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+- [35mevent[39m compiled client and server successfully in 24.7s (1497 modules)
+- [36mwait[39m compiling...
+- [35mevent[39m compiled successfully in 1661 ms (603 modules)
+(node:17082) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:16929) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+TypeError: fetch failed
+TypeError: fetch failed
+TypeError: fetch failed
+TypeError: fetch failed
+TypeError: fetch failed

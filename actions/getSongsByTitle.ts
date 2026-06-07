@@ -14,17 +14,22 @@ const getSongsByTitle = async (title: String): Promise<Song[]> => {
     return allSongs;
   }
 
-  const { data, error } = await supabase
-    .from('songs')
-    .select('*')
-    .ilike('title', `%${title}%`)
-    .order('created_at', { ascending: false });
+  try {
+    const { data, error } = await supabase
+      .from('songs')
+      .select('*')
+      .ilike('title', `%${title}%`)
+      .order('created_at', { ascending: false });
 
-  if (error) {
-    console.log(error.message);
+    if (error) {
+      console.log(error.message);
+    }
+
+    return (data as any) || [];
+  } catch (err: any) {
+    console.log(err.message);
+    return [];
   }
-
-  return (data as any) || [];
 };
 
 export default getSongsByTitle;

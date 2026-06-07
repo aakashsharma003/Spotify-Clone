@@ -12,22 +12,27 @@ const getLikedSongs = async (): Promise<Song[]> => {
 
   const userId = sessionData?.session?.user?.id || 'mock-akash-sharma-id';
 
-  const { data, error } = await supabase
-    .from('liked_songs')
-    .select('*, songs(*)')
-    .eq('user_id', userId)
-    .order('created_at', { ascending: false });
+  try {
+    const { data, error } = await supabase
+      .from('liked_songs')
+      .select('*, songs(*)')
+      .eq('user_id', userId)
+      .order('created_at', { ascending: false });
 
-  if (error) {
-    console.log(error.message);
+    if (error) {
+      console.log(error.message);
+      return [];
+    }
+
+    if (!data) {
+      return [];
+    }
+
+    return data.map((item) => ({ ...item.songs }));
+  } catch (err: any) {
+    console.log(err.message);
     return [];
   }
-
-  if (!data) {
-    return [];
-  }
-
-  return data.map((item) => ({ ...item.songs }));
 };
 
 export default getLikedSongs;
