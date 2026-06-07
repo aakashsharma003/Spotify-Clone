@@ -9,6 +9,10 @@ const useLoadSong = (song: Song) => {
     return null;
   }
 
+  if (song.song_path && (song.song_path.startsWith('http://') || song.song_path.startsWith('https://') || song.song_path.startsWith('/'))) {
+    return song.song_path;
+  }
+
   const { data: songData } = supabaseClient.storage
     .from('songs')
     .getPublicUrl(song.song_path);
