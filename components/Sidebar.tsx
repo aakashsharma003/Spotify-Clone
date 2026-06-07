@@ -13,6 +13,7 @@ import usePlayer from '@/hooks/usePlayer';
 import Box from './Box';
 import SidebarItem from './SidebarItem';
 import Library from './Library';
+import RightSidebar from './RightSidebar';
 
 interface SidebarProps extends PropsWithChildren {
   songs: Song[];
@@ -60,6 +61,7 @@ const Sidebar = ({ children, songs }: SidebarProps) => {
         </Box>
       </div>
       <main className='h-full flex-1 overflow-y-auto py-2'>{children}</main>
+      <RightSidebar />
     </div>
   );
 };
