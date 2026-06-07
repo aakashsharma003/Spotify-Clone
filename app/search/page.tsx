@@ -1,9 +1,9 @@
 import getSongsByTitle from '@/actions/getSongsByTitle';
-
 import Header from '@/components/Header';
 import SearchInput from '@/components/SearchInput';
 import SearchContent from './components/SearchContent';
 import getSongsByArtist from '@/actions/getSongsByArtist';
+import { searchSongs } from '@/libs/musicApi';
 
 export const revalidate = 0;
 
@@ -17,7 +17,10 @@ const Search = async ({ searchParams }: SearchProps) => {
   const songsByTitle = await getSongsByTitle(searchParams.query);
   const songsByArtist = await getSongsByArtist(searchParams.query);
 
-  const songs = songsByTitle.concat(songsByArtist);
+  const localSongs = songsByTitle.concat(songsByArtist);
+  const saavnSongs = searchParams.query ? await searchSongs(searchParams.query) : [];
+
+  const allSongs = [...localSongs, ...saavnSongs];
 
   return (
     <div
@@ -30,7 +33,7 @@ const Search = async ({ searchParams }: SearchProps) => {
           <SearchInput />
         </div>
       </Header>
-      <SearchContent songs={songs} />
+      <SearchContent songs={allSongs} />
     </div>
   );
 };

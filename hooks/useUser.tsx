@@ -24,65 +24,54 @@ export interface Props {
 }
 
 export const MyUserContextProvider = (props: Props) => {
-  const {
-    session,
-    isLoading: isLoadingUser,
-    supabaseClient: supabase,
-  } = useSessionContext();
-  const user = useSupaUser();
-  const accessToken = session?.access_token ?? null;
-  const [isLoadingData, setIsLoadingData] = useState(false);
-  const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
-  const [subscription, setSubscription] = useState<Subscription | null>(null);
+  const mockUser = {
+    id: 'mock-akash-sharma-id',
+    email: 'akash@spotify.com',
+    user_metadata: {
+      full_name: 'Akash Sharma',
+    },
+    aud: 'authenticated',
+    role: 'authenticated',
+    created_at: new Date().toISOString(),
+    app_metadata: {},
+  } as User;
 
-  const getUserDetails = () => supabase.from('users').select('*').single();
+  const mockUserDetails = {
+    id: 'mock-akash-sharma-id',
+    first_name: 'Akash',
+    last_name: 'Sharma',
+    full_name: 'Akash Sharma',
+    avatar_url: undefined,
+  };
 
-  const getSubscription = () =>
-    supabase
-      .from('subscriptions')
-      .select('*, prices(*, products(*))')
-      .in('status', ['trialing', 'active'])
-      .single();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (user && !isLoadingData && !userDetails && !subscription) {
-        setIsLoadingData(true);
-
-        const results = await Promise.allSettled([
-          getUserDetails(),
-          getSubscription(),
-        ]);
-
-        const userDetailsPromise = results[0];
-        const subscriptionPromise = results[1];
-
-        if (userDetailsPromise.status === 'fulfilled') {
-          setUserDetails(userDetailsPromise.value.data as UserDetails);
-        }
-
-        if (subscriptionPromise.status === 'fulfilled') {
-          setSubscription(subscriptionPromise.value.data as Subscription);
-        }
-
-        setIsLoadingData(false);
-      } else if (!user && !isLoadingUser && !isLoadingData) {
-        setUserDetails(null);
-        setSubscription(null);
+  const mockSubscription = {
+    id: 'mock-subscription-id',
+    user_id: 'mock-akash-sharma-id',
+    status: 'active',
+    created: new Date().toISOString(),
+    current_period_start: new Date().toISOString(),
+    current_period_end: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
+    prices: {
+      id: 'mock-price-id',
+      active: true,
+      currency: 'usd',
+      unit_amount: 999,
+      type: 'recurring',
+      products: {
+        id: 'mock-product-id',
+        active: true,
+        name: 'Spotify Premium Admin',
+        description: 'Full Premium Access with Admin Rights',
       }
-    };
-
-    fetchData();
-    // * Don't need to over fetch
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, isLoadingUser]);
+    }
+  } as any;
 
   const value = {
-    accessToken,
-    user,
-    userDetails,
-    isLoading: isLoadingUser || isLoadingData,
-    subscription,
+    accessToken: 'mock-access-token',
+    user: mockUser,
+    userDetails: mockUserDetails,
+    isLoading: false,
+    subscription: mockSubscription,
   };
 
   return <UserContext.Provider value={value} {...props} />;
