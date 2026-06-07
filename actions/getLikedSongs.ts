@@ -8,13 +8,14 @@ const getLikedSongs = async (): Promise<Song[]> => {
     cookies: cookies,
   });
 
-  const { data: sessionData, error: sessionError } =
-    await supabase.auth.getSession();
+  const { data: sessionData } = await supabase.auth.getSession();
+
+  const userId = sessionData?.session?.user?.id || 'mock-akash-sharma-id';
 
   const { data, error } = await supabase
     .from('liked_songs')
     .select('*, songs(*)')
-    .eq('user_id', sessionData?.session?.user.id)
+    .eq('user_id', userId)
     .order('created_at', { ascending: false });
 
   if (error) {

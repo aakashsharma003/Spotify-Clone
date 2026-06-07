@@ -15,6 +15,8 @@ interface SongItemProps {
 const SongItem = ({ data, onClick }: SongItemProps) => {
   const imagePath = useLoadImage(data);
 
+  const isFavorite = data.id.startsWith('public-');
+
   return (
     <div
       className='relative group flex flex-col items-center justify-center rounded-md 
@@ -22,9 +24,13 @@ const SongItem = ({ data, onClick }: SongItemProps) => {
       transition p-3'
     >
       <div
-        className='relative aspect-square w-full h-full rounded-md overflow-hidden
-      '
+        className='relative aspect-square w-full h-full rounded-md overflow-hidden'
       >
+        {isFavorite && (
+          <span className="absolute top-2 left-2 z-10 bg-green-500 text-black text-[9px] font-extrabold px-1.5 py-0.5 rounded-full uppercase tracking-wider shadow-lg select-none">
+            Akash&apos;s Favorite
+          </span>
+        )}
         <Image
           className='object-cover'
           src={imagePath || '/images/liked.png'}

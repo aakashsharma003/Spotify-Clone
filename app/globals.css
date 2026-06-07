@@ -6,10 +6,35 @@ html,
 body,
 :root {
   height: 100%;
-  background-color: black;
+  background-color: #090909;
   color-scheme: dark;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
+/* Custom premium macOS Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+/* Slider Custom Styles for vertical layout */
 .SliderRoot[data-orientation='vertical'] {
   flex-direction: column;
   width: 20px;
@@ -22,4 +47,12 @@ body,
 
 .SliderRange[data-orientation='vertical'] {
   width: 100%;
+}
+
+/* Glassmorphic player background transition */
+.player-glass {
+  background: rgba(18, 18, 18, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
