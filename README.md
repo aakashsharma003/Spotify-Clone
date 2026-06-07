@@ -11,6 +11,7 @@ This is a Spotify clone app created using Next.js, a React framework for server-
 - Search: Users can search for artists or tracks.
 - Music Player: Play and control music tracks with features like play, pause, skip, and shuffle.
 - Automatic Queue Management: Playing a song automatically adds related songs or songs in the playlist to the queue for uninterrupted music playback.
+- Right Sidebar Now Playing: Enjoy a full, beautiful right sidebar with the currently playing track's artwork, title, and artist.
 - Favorite Songs: Users can save their favorite songs and access them later.
 - Upload Songs with Artwork: Users can upload their own songs along with custom artwork, which is stored on Supabase.
 - Subscription Plans: Users can subscribe to different Spotify plans using Stripe for recurring payments.
