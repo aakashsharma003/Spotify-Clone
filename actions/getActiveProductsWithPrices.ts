@@ -5,7 +5,7 @@ import { ProductWithPrice } from '@/types';
 
 const getActiveProductsWithPrices = async (): Promise<ProductWithPrice[]> => {
   const supabase = createServerComponentClient({
-    cookies: cookies,
+    cookies: () => cookies(),
   });
 
   try {

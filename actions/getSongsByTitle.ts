@@ -6,7 +6,7 @@ import getSongs from './getSongs';
 
 const getSongsByTitle = async (title: String): Promise<Song[]> => {
   const supabase = createServerComponentClient({
-    cookies: cookies,
+    cookies: () => cookies(),
   });
 
   if (!title) {

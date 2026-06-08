@@ -5,7 +5,7 @@ import { Song } from '@/types';
 
 const getSongsByArtist = async (artist: String): Promise<Song[]> => {
   const supabase = createServerComponentClient({
-    cookies: cookies,
+    cookies: () => cookies(),
   });
 
   if (!artist) {

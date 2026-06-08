@@ -5,7 +5,7 @@ import { Song } from '@/types';
 
 const getLikedSongs = async (): Promise<Song[]> => {
   const supabase = createServerComponentClient({
-    cookies: cookies,
+    cookies: () => cookies(),
   });
 
   const { data: sessionData } = await supabase.auth.getSession();
