@@ -4,15 +4,16 @@ import { cookies } from 'next/headers';
 import { Song } from '@/types';
 
 const getLikedSongs = async (): Promise<Song[]> => {
-  const supabase = createServerComponentClient({
-    cookies: () => cookies(),
-  });
-
-  const { data: sessionData } = await supabase.auth.getSession();
-
-  const userId = sessionData?.session?.user?.id || 'mock-akash-sharma-id';
-
   try {
+    const supabase = createServerComponentClient({
+      cookies: () => cookies(),
+    });
+
+    const { data: sessionData } = await supabase.auth.getSession();
+    const userId = sessionData?.session?.user?.id;
+
+    if (!userId) return [];
+
     const { data, error } = await supabase
       .from('liked_songs')
       .select('*, songs(*)')
@@ -24,13 +25,11 @@ const getLikedSongs = async (): Promise<Song[]> => {
       return [];
     }
 
-    if (!data) {
-      return [];
-    }
+    if (!data) return [];
 
     return data.map((item) => ({ ...item.songs }));
   } catch (err: any) {
-    console.log(err.message);
+    console.log('[getLikedSongs]', err.message);
     return [];
   }
 };
